@@ -1,38 +1,61 @@
 # Enquiry — Clinic Enquiry Tracker
 
-A portfolio project for administrative clinic enquiries, built with Next.js, React, TypeScript, and Supabase. Use fictional details only.
+A focused web app for a clinic reception team to review administrative enquiries, track follow-up, and keep internal notes.
 
-## Current workflow
+Built as a portfolio demonstration using **fictional data only**. It does not provide medical care, store clinical records, send emails, or book appointments.
 
-- `/`: database-backed public form for local fictional-data testing (requires the second migration and a server secret).
-- `/demo/enquire`: in-memory sample form.
-- `/demo`: sample inbox; changes reset on refresh.
-- `/login`: email/password login for administrator-assigned staff.
-- `/staff`: protected Supabase inbox with search, status/type/date filters, saved status changes, and internal notes.
+## Features
 
-Staff records persist in Supabase. Public submissions save through a server endpoint after setup; the sample form stays in memory. Hosted public saves require trusted HTTPS origins, Turnstile, and an explicit enable setting. No emails are sent. Staff membership is checked on every server read/write, and row-level security limits access to the assigned clinic. Signing up alone does not grant staff access. Status updates are restricted to the status column; note authorship comes from the verified session.
+- Public enquiry form with field validation and Cloudflare Turnstile verification.
+- Persistent submissions with a confirmation reference and duplicate prevention on retries.
+- Staff sign-in and a protected inbox.
+- Search by name, email, or reference; filter by status, enquiry type, and received date.
+- New, In progress, and Resolved workflow states.
+- Internal notes attributed to the signed-in staff account.
+- Clinic-based database access policies and administrator-managed staff membership.
+- An independent sample workflow at `/demo`, with an in-memory form at `/demo/enquire`.
 
-## Development
+## Stack
 
-Copy `.env.example` to `.env.local` and supply the project URL and publishable key. Keep credentials out of source control. See `docs/database-setup.md` for the database migration.
+Next.js App Router · React · TypeScript · Tailwind CSS · Supabase Auth and PostgreSQL · Cloudflare Turnstile
 
-```powershell
+## Access and submission controls
+
+Staff can read their assigned clinic's enquiries, change status, and append notes. They cannot assign memberships, move records between clinics, rewrite enquiry messages, or edit/delete saved notes. Anonymous visitors cannot read the database or execute the privileged submission function.
+
+Public saves go through the server, with validation, bounded request bodies, trusted-origin checks, bot verification, and atomic database limits. Retrying the same submission returns its existing reference. Hosted submissions require an explicit enable setting.
+
+Only the public configuration belongs in browser code. Server keys stay in environment variables; `.env.local` is excluded from Git and deployment uploads. `.env.example` contains empty placeholders.
+
+## Verification
+
+- 46 automated tests cover validation, filtering, authentication, authorization, submission behavior, Turnstile failures, and trusted origins.
+- ESLint, TypeScript, and the production build pass.
+- 35 database access checks and 23 submission reliability checks passed locally and were confirmed in the development Supabase project.
+- Local submission, sign-in, status/note persistence, and sign-out were verified.
+
+Hosted checks are pending deployment. Automated mocks do not replace database or browser verification.
+
+## Setup and deployment
+
+Use Node.js and npm. Copy `.env.example` to `.env.local`, then follow the database and Turnstile setup documents before starting the persistent workflow.
+
+```sh
 npm install
 npm run dev
 ```
 
-```powershell
+```sh
 npm test
 npm run lint
 npm run build
 ```
 
-## Verification and next work
+- [Database setup](docs/database-setup.md)
+- [Public submissions](docs/public-submissions.md)
+- [Turnstile setup](docs/turnstile.md)
+- [Database access tests](docs/access-verification.md)
+- [Submission reliability tests](docs/submission-verification.md)
+- [Vercel deployment](docs/deployment.md)
 
-Automated tests cover enquiry validation/filtering and mocked authentication/action authorization paths. Production build and lint checks are run during implementation. Anonymous live database reads were denied for all four tables. Signed-out `/staff` navigation redirects to login and invalid credentials show an error.
-
-Successful login, logout, and persistence still need verification using the owner's staff account. Mocked tests do not prove cross-clinic database isolation; behavioral RLS tests are required before release.
-
-Deployment setup is documented in `docs/deployment.md`. Local Turnstile submissions and staff persistence work; the owner reported both SQL suites passed (35 access and 23 reliability checks). Hosted verification follows deployment. See `docs/public-submissions.md` and `docs/turnstile.md` for setup. No medical records, clinical advice, payments, or appointment scheduling. See `docs/project-brief.md` for scope.
-
-Auth implementation follows https://supabase.com/docs/guides/auth/server-side/creating-a-client .
+This project is under development. The deployment guide lists the environment variables and hosted verification steps.
