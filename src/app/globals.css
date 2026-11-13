@@ -193,3 +193,90 @@ input::placeholder,textarea::placeholder { color:#7b8b84; }
 @media (max-width:760px) { .workspace { display:block; }.sidebar { display:grid; grid-template-columns:1fr auto; gap:17px; padding:18px 20px; border-right:0; border-bottom:1px solid var(--line); }.sidebar>a:first-child { grid-column:1; }.sidebar .brand { margin:0; font-size:25px; }.sidebar nav { display:flex; grid-column:1 / -1; gap:4px; overflow-x:auto; }.sidebar nav button { width:auto; white-space:nowrap; padding:10px; font-size:12px; }.sidebar nav button>span:last-child { margin-left:2px; }.sidebar nav button>svg { display:none; }.sidebar .clinic-switcher,.sidebar .nav-label,.sidebar>.sidebar-link { display:none; }.sidebar-bottom { display:flex; grid-column:2; grid-row:1; align-items:center; gap:12px; padding:0; margin:0; }.sidebar-bottom .staff-profile,.sidebar-bottom .demo-explainer { display:none; }.sidebar-bottom>form .button { min-height:35px; }.workspace-header { min-height:56px; padding:12px 20px; font-size:12px; }.workspace-header .quiet-link { font-size:12px; }.dashboard-main { padding:24px 20px; }.dashboard-title h1 { font-size:30px; }.dashboard-title p { font-size:12px; }.workspace-badge { display:none; }.public-grid { grid-template-columns:1fr; padding:30px 0 40px; gap:28px; }.public-intro { padding-top:0; }.public-intro h1 { margin:15px 0; font-size:44px; }.intro-copy { max-width:600px; margin-bottom:0; font-size:15px; }.intro-feature,.fictional-label { display:none; }.scope-note { margin-top:22px; padding:15px; }.form-card { padding:28px; }.public-header { padding:22px 0; }.public-header nav { gap:15px; }.contact-details { grid-template-columns:1fr 1fr; }.dashboard-title>.primary { flex-shrink:0; } }
 @media (max-width:480px) { .demo-notice { padding:7px 12px; font-size:11px; gap:6px; }.public-page { padding:0 16px; }.public-header .brand { font-size:25px; }.public-header nav>.quiet-link { display:none; }.public-intro h1 { font-size:38px; letter-spacing:-1.8px; }.public-grid { padding-top:26px; }.public-intro .eyebrow { font-size:10px; }.scope-note p { font-size:12px; }.form-card { padding:24px 20px; border-radius:13px; }.field-pair { grid-template-columns:1fr; gap:0; }.field input,.field select,.field textarea,.notes-section textarea,.detail-field select,.staff-login-form input,.date-filters input,.search-box input { font-size:16px; }.public-footer { align-items:flex-start; line-height:1.8; font-size:11px; }.public-footer>span { max-width:195px; }.public-footer a { white-space:nowrap; }.summary-grid { grid-template-columns:1fr 1fr; }.summary-card strong { font-size:28px; }.dashboard-main { padding:22px 14px; }.sidebar { padding:17px 14px; }.sidebar nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:3px; overflow:visible; }.sidebar nav button { justify-content:center; padding:10px 2px; font-size:10px; gap:0; }.sidebar nav button>span:last-child { display:none; }.sidebar nav button>span:last-child { padding:1px 4px; font-size:10px; }.workspace-header { padding:12px 14px; }.dashboard-title { flex-wrap:wrap; }.dashboard-title>.primary { margin-top:0; }.dashboard-title h1 { font-size:28px; }.summary-card>div>svg { display:none; }.inbox-heading { padding:20px 16px 16px; }.inbox-toolbar { padding:0 14px 16px; }.inbox-toolbar .button { padding:8px 10px; }.inbox-toolbar .button>svg { display:none; }.inbox-heading p { font-size:12px; }.row-heading { flex-wrap:wrap; }.row-heading time { font-size:10px; }.enquiry-row { padding:18px 16px; }.contact-details { grid-template-columns:1fr; }.detail-panel { padding:22px 19px; }.date-filters { grid-template-columns:1fr; gap:12px; padding:0 16px 18px; }.filter-row { padding:0 16px 16px; }.filter-row select { max-width:190px; }.active-filters,.inbox-footer { padding-left:16px; padding-right:16px; }.detail-person h2 { font-size:19px; }.dashboard-footer { flex-wrap:wrap; gap:6px; }.access-card { padding:28px 24px; }.mobile-break { display:initial; }.status-tabs button { font-size:11px; padding:7px; } }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition-duration:.01ms!important; animation-duration:.01ms!important; } }
+
+/* Shared UTC calendar filters */
+.date-filters > div { min-width: 0; }
+.date-picker-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 43px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfb;
+  color: var(--muted);
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.5;
+  transition: border-color .15s, background .15s;
+}
+.date-picker-trigger:hover { border-color: #91b4a9; background: #f3f8f5; }
+.date-picker-trigger[aria-expanded=true] { border-color: var(--teal); box-shadow: 0 0 0 3px #176f6112; }
+.date-picker-trigger.has-date { color: var(--ink); font-weight: 500; }
+.date-picker-trigger > svg:first-child { flex-shrink: 0; color: var(--teal); }
+.date-picker-trigger > svg:last-child { margin-left: auto; flex-shrink: 0; }
+.date-picker-panel {
+  z-index: 100;
+  width: 320px;
+  max-width: calc(100vw - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: white;
+  color: var(--ink);
+  border: 1px solid #d5e4dc;
+  border-radius: 13px;
+  padding: 16px;
+  box-shadow: 0 12px 45px #14382a24, 0 2px 8px #14382a0a;
+  outline: none;
+}
+.date-picker-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 600; }
+.date-picker-heading button { border: 0; background: #f1f5f2; color: var(--muted); border-radius: 6px; width: 27px; height: 27px; font-size: 20px; line-height: 1; }
+.date-picker-panel .rdp-root {
+  --rdp-accent-color: #176f61;
+  --rdp-accent-background-color: #eaf4ef;
+  --rdp-selected-border: 0;
+  --rdp-day-height: 37px;
+  --rdp-day-width: 37px;
+  --rdp-day_button-height: 34px;
+  --rdp-day_button-width: 34px;
+  --rdp-day_button-border-radius: 7px;
+  --rdp-today-color: #176f61;
+  --rdp-nav_button-height: 28px;
+  --rdp-nav_button-width: 28px;
+  --rdp-nav-height: 32px;
+  --rdp-disabled-opacity: .3;
+  margin: 0;
+  font-size: 12px;
+}
+.date-picker-panel .rdp-months { display: block; max-width: none; }
+.date-picker-panel .rdp-month { width: 100%; }
+.date-picker-panel .rdp-month_grid { width: 100%; }
+.date-picker-panel .rdp-month_caption { height: 32px; padding-left: 3px; margin-bottom: 12px; }
+.date-picker-panel .rdp-caption_label { font-size: 14px; font-weight: 600; letter-spacing: -.2px; }
+.date-picker-panel .rdp-nav { gap: 5px; }
+.date-picker-panel .rdp-button_previous, .date-picker-panel .rdp-button_next { border: 1px solid var(--line); border-radius: 6px; }
+.date-picker-panel .rdp-chevron { width: 15px; height: 15px; }
+.date-picker-panel .rdp-weekday { font-size: 9px; font-weight: 500; color: var(--muted); text-transform: uppercase; padding-bottom: 10px; }
+.date-picker-panel .rdp-day_button { font: inherit; margin-inline: auto; }
+.date-picker-panel .rdp-selected .rdp-day_button { background: var(--teal); color: white; font-weight: 600; }
+.date-picker-panel .rdp-day:not(.rdp-disabled):not(.rdp-selected) .rdp-day_button:hover { background: var(--soft-teal); }
+.date-picker-panel .rdp-today:not(.rdp-selected) .rdp-day_button { box-shadow: inset 0 0 0 1px #9bbeb0; }
+.date-picker-panel .rdp-disabled .rdp-day_button { opacity: 1; }
+.date-picker-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.date-picker-footer button { border: 0; background: var(--soft-teal); color: var(--teal-dark); padding: 7px 11px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+.date-picker-footer button:disabled { background: #f4f6f3; color: var(--muted); }
+.date-picker-footer > span { color: var(--muted); font-size: 10px; }
+.date-picker-trigger:focus-visible, .date-picker-panel button:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+@media (max-width: 480px) {
+  .date-picker-trigger { min-height: 46px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .date-picker-trigger { transition: none; }
+}
+
+@media (max-width: 400px) {
+  .date-picker-panel { width: 280px; max-width: calc(100vw - 40px); padding: 14px; }
+  .date-picker-panel .rdp-root { --rdp-day-width: 32px; --rdp-day_button-width: 30px; }
+}

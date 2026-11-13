@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { DemoProvider } from "@/components/demo-provider";
 import { DemoNotice } from "@/components/ui";
+import "react-day-picker/style.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
