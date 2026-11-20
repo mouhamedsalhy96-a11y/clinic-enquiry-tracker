@@ -1,4 +1,4 @@
-# Enquiry — Clinic Enquiry Tracker
+# Enquiry â€” Clinic Enquiry Tracker
 
 A focused web app for a clinic reception team to review administrative enquiries, track follow-up, and keep internal notes.
 
@@ -17,7 +17,7 @@ Built as a portfolio demonstration using **fictional data only**. It does not pr
 
 ## Stack
 
-Next.js App Router · React · TypeScript · Tailwind CSS · Supabase Auth and PostgreSQL · Cloudflare Turnstile
+Next.js App Router Â· React Â· TypeScript Â· Tailwind CSS Â· Supabase Auth and PostgreSQL Â· Cloudflare Turnstile
 
 ## Access and submission controls
 
@@ -34,28 +34,20 @@ Only the public configuration belongs in browser code. Server keys stay in envir
 - 35 database access checks and 23 submission reliability checks passed locally and were confirmed in the development Supabase project.
 - Local submission, sign-in, status/note persistence, and sign-out were verified.
 
-Hosted checks are pending deployment. Automated mocks do not replace database or browser verification.
+The deployed workflow has also been checked with fictional submissions, staff updates, persistence and sign-out. Automated mocks do not replace database or browser verification.
 
-## Setup and deployment
+## Project links
 
-Use Node.js and npm. Copy `.env.example` to `.env.local`, then follow the database and Turnstile setup documents before starting the persistent workflow.
+- [Live demonstration](https://clinic-enquiry-tracker.vercel.app/)
+- [Source repository](https://github.com/mouhamedsalhy96-a11y/clinic-enquiry-tracker)
 
-```sh
-npm install
-npm run dev
-```
+## Technical documentation
 
-```sh
-npm test
-npm run lint
-npm run build
-```
-
-- [Database setup](docs/database-setup.md)
+- [Database architecture](docs/database-setup.md)
 - [Public submissions](docs/public-submissions.md)
-- [Turnstile setup](docs/turnstile.md)
+- [Turnstile integration](docs/turnstile.md)
 - [Database access tests](docs/access-verification.md)
 - [Submission reliability tests](docs/submission-verification.md)
-- [Vercel deployment](docs/deployment.md)
+- [Deployment configuration](docs/deployment.md)
 
-This project is under development. The deployment guide lists the environment variables and hosted verification steps.
+Validation commands: `npm test`, `npm run lint`, `npm run build`.

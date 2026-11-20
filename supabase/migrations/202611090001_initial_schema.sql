@@ -1,4 +1,3 @@
--- Run once in the dedicated development project's SQL Editor.
 -- Staff membership is assigned by an administrator, never by public signup.
 begin;
 
@@ -101,8 +100,7 @@ for insert to authenticated with check (
   )
 );
 
--- The public form stays in demo mode until server validation and abuse controls
--- are connected. There is deliberately no anonymous table access or insert RPC.
+-- Seeded clinic for the fictional demonstration. Anonymous table access is denied.
 insert into public.clinics(id, name)
 values ('74399bb3-2275-4b0d-b9c9-f25be50bdf06', 'Demo clinic');
 

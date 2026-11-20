@@ -10,7 +10,7 @@ The suite creates four fictional Auth users, two fictional clinics, two enquirie
 
 Checks cover active staff's allowed reads and writes; clinic isolation in both directions; anonymous, non-staff and inactive accounts; note authorship; restrictions on editing messages/notes, moving enquiries, granting memberships and reading server receipts; and privileged submission-function access.
 
-If any statement fails, do not change policies to make the test pass. Run `ROLLBACK;` in a separate query if the editor reports an aborted transaction, then share the error text. The suite fails immediately when a forbidden operation succeeds.
+If any statement fails, do not change policies to make the test pass. Run `ROLLBACK;` in a separate query if the editor reports an aborted transaction, then inspect the failing assertion. The suite fails immediately when a forbidden operation succeeds.
 
 ## Validation performed
 

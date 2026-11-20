@@ -8,8 +8,8 @@ This checks accepted inserts, fixed clinic/New status, retry deduplication, conf
 
 Pause public submissions while running this short transaction: it holds the same advisory lock as the submission function. If more than 26 accepted submissions already exist in the current 15-minute window, the script stops and asks you to wait. Do not execute fragments or remove its ROLLBACK.
 
-If an error appears, run `ROLLBACK;` separately if the editor reports an aborted transaction, then share the error. Do not change access policies or quotas just to pass a test.
+If an error appears, run `ROLLBACK;` separately if the editor reports an aborted transaction, then inspect the failing assertion. Do not change access policies or quotas just to pass a test.
 
 Validation: both migrations and the 35 access checks plus 23 reliability checks passed in a temporary PGlite PostgreSQL runtime with a minimal Auth schema/auth.uid shim. An independent final query confirmed no fixture enquiries or receipts remained. This is sequential PostgreSQL validation; distributed concurrency/load behavior and the deployed Supabase instance still require their own verification.
 
-After the Supabase test passes, the next release milestone is bot protection and deployment configuration. Production public submissions remain disabled until those are implemented and verified.
+Hosted submissions additionally require Turnstile, trusted-origin configuration and the explicit enable switch. SQL checks do not exercise those HTTP controls.

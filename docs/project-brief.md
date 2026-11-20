@@ -1,43 +1,26 @@
-# Project brief
+# Project overview
 
-## Problem
+Clinic Enquiry Tracker is a fictional clinic reception workflow for administrative enquiries. It does not provide medical care, store clinical records, send email or book appointments.
 
-A small clinic needs a clear view of administrative enquiries and their follow-up status.
+## Workflow
 
-## Users
+1. An enquirer submits fictional contact details, a category, preferred contact method and message.
+2. Staff review the saved enquiry in a protected clinic inbox.
+3. Staff mark it new, in progress or resolved and append internal notes.
+4. Search and status, category and date filters support follow-up.
 
-- An enquirer asking about availability, clinic information, or administrative arrangements.
-- A staff member reviewing requests and recording follow-up actions.
+The independent `/demo` workflow uses browser memory and resets on refresh. The public form at `/` uses persistent database submissions when enabled.
 
-## Core workflow
+## Data and access
 
-1. Submit an enquiry with name, email, optional phone, category, preferred contact method, and message.
-2. Review it in the staff inbox.
-3. Mark it new, in progress, or resolved.
-4. Add an internal administrative note.
-5. Search and filter by status, category, or received date.
+- `clinics`: clinic identity.
+- `staff_members`: verified account identity and clinic membership.
+- `enquiries`: contact fields, message, reference, status and timestamps.
+- `enquiry_notes`: enquiry, staff author, note and timestamp.
+- Private submission receipts: idempotency and rate-limit records.
 
-## Data model planned for Supabase
+Internal notes never appear in public confirmations. Server validation, bounded bodies, trusted origins, Turnstile and atomic database limits protect public submissions. Row-level security limits staff access to their assigned clinic.
 
-- `staff_members`: verified user identity and clinic membership.
-- `enquiries`: clinic, reference, contact fields, category, message, workflow status, created/updated timestamps.
-- `enquiry_notes`: enquiry, staff author, note text, and timestamp.
-- Access policies: active staff can only read/change their clinic's enquiries and notes. Public users cannot read the inbox.
+## Scope
 
-Internal notes must never appear in public confirmations. Public submission needs server validation, size limits, rate limiting, and bot protection before production access.
-
-## Milestones
-
-1. **Frontend demo:** public form, inbox, filters, details, notes, and statuses using fictional data. This is the current milestone.
-2. **Persistent core:** Supabase migrations, staff sign-in/sign-out, protected inbox, reliable saves and error states.
-3. **Verification:** database access-policy tests, end-to-end workflow checks, responsive and accessibility review.
-4. **AI drafting:** convert fictional enquiry text into a proposed entry, require staff review before saving, and apply usage limits.
-5. **Portfolio release:** deployment, demo access strategy, screenshots, short walkthrough, and a factual case study.
-
-## Definition of finished
-
-The hosted demonstration allows a reviewer to complete the public-to-staff workflow with fictional data; staff access is protected; database tests prove isolation; server failures show actionable errors; the app builds and deploys; and the case study states its scope and limitations accurately.
-
-## Learning checkpoint
-
-After each feature, explain its input, validation, state or database change, error path, and one test. Make one small modification yourself before moving on.
+The portfolio release demonstrates public submission, staff authentication, persistence, filters and follow-up. Real clinical use would require a separate privacy, retention and operational review.
